@@ -1,0 +1,74 @@
+/* Whole page */
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.l-page-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Options */
+.l-options__container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    flex: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-options__bar {
+    width: 100%;
+}
+
+.c-options__tab {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Sketchpad */
+.l-sketchpad__container {
+    margin: 0;
+    padding: 0;
+    flex: 1 1 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.c-sketchpad__body {
+    margin: 0;
+    padding: 0;
+    border: solid 1px black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.c-sketchpad__cell {
+    margin: 0;
+    padding: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+/* .c-sketchpad__cell:hover {
+    background-color: steelblue;
+} */
+
+.js-template-cell {
+    display: none !important;
+}
