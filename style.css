@@ -30,6 +30,8 @@ body {
 
 .l-options__bar {
     width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
 .c-options__tab {

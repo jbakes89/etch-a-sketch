@@ -12,7 +12,19 @@
             <!-- Options bar -->
             <div class="l-options__container">
                 <div class="l-options__bar">
-
+                    <form class="l-options__resize-button js-resize-form">
+                        <label for="grid-size">Grid size (1-100):</label>
+                        <input class="js-grid-size-input" type="number" name="grid-size" id="grid-size" min="1" max="100" value="16" required>
+                    </form>
+                    <button class="l-options__erase-button js-erase-button">Erase</button>
+                    <div class="l-options__mode-selection">
+                        <input type="radio" name="mode" id="one-color" value="one-color" checked>
+                        <label for="one-color">One colour</label>
+                        <input type="radio" name="mode" id="random-color" value="random-color">
+                        <label for="random-color">Random colour</label>
+                        <input type="radio" name="mode" id="shading" value="shading">
+                        <label for="shading">Shading</label>
+                    </div>
                 </div>
                 <div class="c-options__tab">
                 =
@@ -25,6 +37,6 @@
             </div>
         </main>
         <div class="c-sketchpad__cell js-template-cell"></div>
-        <script src="main.js" defer></script>
+        <script src="main.js" type=module defer></script>
     </body>
 </html>
