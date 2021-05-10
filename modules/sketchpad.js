@@ -3,10 +3,12 @@ export class Sketchpad {
     sideLength;
     templateCell;
     backgroundColor;
-    painter; // defer to painter to get colour for target cells
+    currentPainter; // defer to painter to get colour for target cells
 
-    constructor(sideLength=16, element=null) {
-        this.element = element ?? document.querySelector(".js-sketchpad");
+    constructor(painter, sideLength=16) {
+        this.currentPainter = painter;
+
+        this.element = document.querySelector(".js-sketchpad");
         this.sideLength = sideLength;
 
         this.templateCell = document.querySelector(".js-template-cell");
@@ -15,7 +17,7 @@ export class Sketchpad {
         this.element.addEventListener("mouseover", (e) => {
             // Prevent triggering on whole sketchpad when mousing over border
             if (e.target != e.currentTarget) {
-                e.target.style.backgroundColor = "steelblue"
+                e.target.style.backgroundColor = this.currentPainter.getColorForCell(e.target);
             }
         })
 
