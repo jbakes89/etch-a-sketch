@@ -1,5 +1,6 @@
 import { Sketchpad } from "/modules/sketchpad.js";
-import { SingleColorPainter, RainbowPainter, IncrementalPainter } from "/modules/painter.js";
+import { RainbowPainter, IncrementalPainter } from "/modules/painter.js";
+import { Color } from "/modules/color.js";
 
 export class Controller {
 
@@ -7,19 +8,30 @@ export class Controller {
     gridSizeInput;
     eraseAllButton;
     paintingModeButtons;
-    singleColorPicker;
+    colorPicker;
+    alphaSlider;
+    alphaLabel;
+
+    currentColor;
 
     sketchpad;
     painters = {
-        SINGLE_COLOR_PAINTER: new SingleColorPainter(),
-        RAINBOW_PAINTER: new RainbowPainter(),
-        INCREMENTAL_PAINTER: new IncrementalPainter()
+        INCREMENTAL_PAINTER: new IncrementalPainter(),
+        RAINBOW_PAINTER: new RainbowPainter()
     }
 
     constructor() {
         this.bindUI()
 
-        this.sketchpad = new Sketchpad(this.painters.SINGLE_COLOR_PAINTER, this.gridSizeInput.value);
+        this.sketchpad = new Sketchpad(this.painters.INCREMENTAL_PAINTER, this.gridSizeInput.value);
+    }
+
+    updateColor() {
+        this.currentColor = new Color(this.colorPicker.value);
+        this.currentColor.A = this.alphaSlider.value;
+        for (var painter in this.painters) {
+            this.painters[painter].currentColor = this.currentColor;
+        }  
     }
 
     /* Events */
@@ -27,7 +39,7 @@ export class Controller {
         this.sketchpad.resize();
     }
 
-    gridSizeChange(e) {
+    gridSizeChanged(e) {
         e.target.value = Math.min(Math.max(Math.round(e.target.value), e.target.min), e.target.max);
         this.sketchpad.updateGridSize(e.target.value)
     }
@@ -36,11 +48,8 @@ export class Controller {
         this.sketchpad.eraseGrid();
     }
 
-    paintingModeChange(e) {
+    paintingModeChanged(e) {
         switch (e.target.value) {
-            case "one-color":
-                this.sketchpad.currentPainter = this.painters.SINGLE_COLOR_PAINTER;
-                return;
             case "rainbow":
                 this.sketchpad.currentPainter = this.painters.RAINBOW_PAINTER;
                 return;
@@ -52,47 +61,52 @@ export class Controller {
         }
     }
 
-    changeColor(e) {
-        for (var painter in this.painters) {
-            this.painters[painter].currentColor = hexToRGB(e.target.value);
-        }
+    colorChanged(e) {
+        this.updateColor()
     }
+
+    alphaSliderChanging(e) {
+        // update alpha value (displayed next to slider)
+        this.alphaLabel.value = e.target.value;
+    }
+
+    alphaSliderChanged(e) {
+        // update current alpha
+        this.updateColor();
+    }
+
+    alphaValueChanging(e) {
+        this.alphaSlider.value = e.target.value;
+    }
+
 
     bindUI() {
         window.addEventListener('resize', e => this.resizeWindow(e));
 
-        // Prevent grid size form submission in "Return" key press
+        // Prevent grid size form submission on "Return" key press
         document.querySelector(".js-resize-form").addEventListener("submit", e => e.preventDefault());
 
         this.gridSizeInput = document.querySelector(".js-grid-size-input");
-        this.gridSizeInput.addEventListener("change", e => this.gridSizeChange(e));
+        this.gridSizeInput.addEventListener("change", e => this.gridSizeChanged(e));
 
         this.eraseAllButton = document.querySelector(".js-erase-all-button");
         this.eraseAllButton.addEventListener("click", e => this.eraseAll(e));
 
         this.paintingModeButtons = document.querySelectorAll("input[name=\"painting-mode\"]");
         for (var button of this.paintingModeButtons) {
-            button.addEventListener("change", e => this.paintingModeChange(e));
+            button.addEventListener("change", e => this.paintingModeChanged(e));
         };
 
-        this.singleColorPicker = document.querySelector(".js-single-color-picker");
-        this.singleColorPicker.addEventListener("change", e => this.changeColor(e));
+        this.colorPicker = document.querySelector(".js-color-picker");
+        this.colorPicker.addEventListener("change", e => this.colorChanged(e));
 
-        for (var painter in this.painters) {
-            this.painters[painter].currentColor = hexToRGB(this.singleColorPicker.value);
-        }
+        this.alphaSlider = document.querySelector(".js-alpha-slider");
+        this.alphaSlider.addEventListener("input", e => this.alphaSliderChanging(e));
+        this.alphaSlider.addEventListener("change", e => this.alphaSliderChanged(e));
+
+        this.alphaLabel = document.querySelector(".js-alpha-value");
+        this.alphaLabel.addEventListener("input", e => this.alphaValueChanging(e));
+
+        this.updateColor();
     }
-}
-
-/* Utility functions */
-function hexToRGB(hexString) {
-    const R = parseInt(hexString.slice(1,3), 16);
-    const G = parseInt(hexString.slice(3,5), 16);
-    const B = parseInt(hexString.slice(5), 16);
-
-    return `rgb(${R},${G},${B})`;
-}
-
-function RGBtoRGBA(rgbString, alpha) {
-    return `rgba(${rgbString.slice(4,-1)},${alpha})`;
 }

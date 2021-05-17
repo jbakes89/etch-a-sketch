@@ -25,20 +25,18 @@
                     </div>
                     <!-- Select painting mode -->
                     <div class="l-options__subsection --painting-mode-selection">
-                        <input type="radio" name="painting-mode" id="one-color" value="one-color" checked>
-                        <label for="one-color">One colour</label>
+                        <input type="radio" name="painting-mode" id="shading" value="shading" checked>
+                        <label for="shading">Shading</label>
                         <input type="radio" name="painting-mode" id="rainbow" value="rainbow">
                         <label for="rainbow">Rainbow</label>
-                        <input type="radio" name="painting-mode" id="shading" value="shading">
-                        <label for="shading">Shading</label>
                     </div>
                     <!-- Contextual (painting mode-specific) options -->
                     <div class="l-options__subsection --contextual-options">
                         <label for="color">Colour: </label>
-                        <input type="color" value="#4d9fb3" id="color" name="color" class="js-single-color-picker">
+                        <input type="color" value="#4d9fb3" id="color" name="color" class="js-color-picker">
                         <label for="alpha">Alpha: </label>
-                        <input type="range" id="alpha" name= "alpha" value="1.00" min="0" max="1" step="0.01">
-                        <span class="alpha-value js-alpha-value">1.00</span>
+                        <input type="range" id="alpha" name= "alpha" value="1.00" min="0" max="1" step="0.01" class="js-alpha-slider">
+                        <input class="js-alpha-value" type="number" name="alpha-value" id="alpha-value" min="0" max="1.00" value="1.00" step="0.01" required>
                     </div>
                 </div>
                 <div class="c-options__tab">
