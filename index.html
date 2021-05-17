@@ -12,18 +12,33 @@
             <!-- Options bar -->
             <div class="l-options__container">
                 <div class="l-options__bar">
-                    <form class="l-options__resize-button js-resize-form">
-                        <label for="grid-size">Grid size (1-100):</label>
-                        <input class="js-grid-size-input" type="number" name="grid-size" id="grid-size" min="1" max="100" value="16" required>
-                    </form>
-                    <button class="l-options__erase-button js-erase-button">Erase</button>
-                    <div class="l-options__mode-selection">
+                    <!-- Change grid size -->
+                    <div class="l-options__subsection --grid-size">
+                        <form class="l-options__resize-button js-resize-form">
+                            <label for="grid-size">Grid size (1-100):</label>
+                            <input class="js-grid-size-input" type="number" name="grid-size" id="grid-size" min="1" max="100" value="16" required>
+                        </form>
+                    </div>
+                    <!-- Action buttons (Erase All, Save/Export?) -->
+                    <div class="l-options__subsection --actions">
+                        <button class="l-options__erase-all-button js-erase-all-button">Erase All</button>
+                    </div>
+                    <!-- Select painting mode -->
+                    <div class="l-options__subsection --painting-mode-selection">
                         <input type="radio" name="painting-mode" id="one-color" value="one-color" checked>
-                        <label for="one-color">One colour <input type="color" value="#4d9fb3" class="js-single-color-picker"></label>
+                        <label for="one-color">One colour</label>
                         <input type="radio" name="painting-mode" id="rainbow" value="rainbow">
-                        <label for="random-color">Rainbow</label>
+                        <label for="rainbow">Rainbow</label>
                         <input type="radio" name="painting-mode" id="shading" value="shading">
                         <label for="shading">Shading</label>
+                    </div>
+                    <!-- Contextual (painting mode-specific) options -->
+                    <div class="l-options__subsection --contextual-options">
+                        <label for="color">Colour: </label>
+                        <input type="color" value="#4d9fb3" id="color" name="color" class="js-single-color-picker">
+                        <label for="alpha">Alpha: </label>
+                        <input type="range" id="alpha" name= "alpha" value="1.00" min="0" max="1" step="0.01">
+                        <span class="alpha-value js-alpha-value">1.00</span>
                     </div>
                 </div>
                 <div class="c-options__tab">

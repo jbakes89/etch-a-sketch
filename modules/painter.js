@@ -1,4 +1,6 @@
 class Painter {
+    currentColor;
+
     /* Handles colour selection depending on painting mode */
     getColorForCell(cell) {
         return null;
@@ -6,7 +8,7 @@ class Painter {
 }
 
 export class SingleColorPainter extends Painter {
-    currentColor = `rgba(77, 159, 179, 1.0)`;
+    // currentColor = `rgba(77, 159, 179, 1.0)`;
 
     getColorForCell(cell) {
         return this.currentColor;
@@ -15,13 +17,14 @@ export class SingleColorPainter extends Painter {
 
 export class RainbowPainter extends Painter {
     variableAlpha = false;
+    fixedAlpha = 1.0;
 
     getColorForCell(cell) {
         return `rgba(
             ${Math.floor(Math.random() * 256)},
             ${Math.floor(Math.random() * 256)},
             ${Math.floor(Math.random() * 256)},
-            ${this.variableAlpha ? Math.random() : 1.0}
+            ${this.variableAlpha ? Math.random() : this.fixedAlpha}
         )`;
     }
 }

@@ -60,9 +60,7 @@ export class Sketchpad {
         const newCell = this.templateCell.cloneNode();
         newCell.classList.remove("js-template-cell");
         newCell.style.width = newCell.style.height = `${cellSize}%`;
-        // newCell.onmouseenter = (e) => {
-        //     e.target.style.backgroundColor = "steelblue";
-        // }
+
         return newCell;
     }
 
