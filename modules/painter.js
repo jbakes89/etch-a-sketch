@@ -1,29 +1,8 @@
 import { Color } from "/modules/color.js";
 
-class Painter {
+export class Painter {
     currentColor;
     currentAlpha = 1.0;
-
-    /* Handles colour selection depending on painting mode */
-    getColorForCell(cell) {
-        return null;
-    }
-}
-
-export class RainbowPainter extends Painter {
-    variableAlpha = false;
-
-    getColorForCell(cell) {
-        return `rgba(
-            ${Math.floor(Math.random() * 256)},
-            ${Math.floor(Math.random() * 256)},
-            ${Math.floor(Math.random() * 256)},
-            ${this.variableAlpha ? Math.random() : this.currentColor.A}
-        )`;
-    }
-}
-
-export class IncrementalPainter extends Painter {
 
     getColorForCell(cell) {
         const currentCellColor = new Color(cell.style.backgroundColor);
@@ -37,5 +16,22 @@ export class IncrementalPainter extends Painter {
         // }
 
         return this.currentColor.blendOver(currentCellColor).asString();
+    }
+}
+
+export class RainbowPainter extends Painter {
+    variableAlpha = false;
+
+    getColorForCell(cell) {
+        this.currentColor = this.getNextColor();
+        return super.getColorForCell(cell);
+    }
+
+    getNextColor() {
+        return new Color(Math.floor(Math.random() * 256),
+            Math.floor(Math.random() * 256),
+            Math.floor(Math.random() * 256),
+            this.variableAlpha ? Math.random() : this.currentColor.A
+        )
     }
 }

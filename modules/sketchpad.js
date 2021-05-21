@@ -3,11 +3,9 @@ export class Sketchpad {
     sideLength;
     templateCell;
     backgroundColor;
-    currentPainter; // defer to painter to get colour for target cells
+    controller;
 
-    constructor(painter, sideLength=16) {
-        this.currentPainter = painter;
-
+    constructor(sideLength=16) {
         this.element = document.querySelector(".js-sketchpad");
         this.sideLength = sideLength;
 
@@ -15,9 +13,9 @@ export class Sketchpad {
         this.backgroundColor = this.templateCell.style.backgroundColor;
 
         this.element.addEventListener("mouseover", (e) => {
-            // Prevent triggering on whole sketchpad when mousing over border
+            // Prevent triggering on whole sketchpad when mousing over grid border
             if (e.target != e.currentTarget) {
-                e.target.style.backgroundColor = this.currentPainter.getColorForCell(e.target);
+                e.target.style.backgroundColor = this.controller.currentPainter.getColorForCell(e.target);
             }
         })
 
@@ -27,33 +25,38 @@ export class Sketchpad {
 
     makeGrid() {
         const totalNumCells = Math.pow(this.sideLength, 2);
-        const numCellsNeeded = totalNumCells - this.element.children.length;
+        // const numCellsNeeded = totalNumCells - this.element.children.length;
 
         const cellSize = this.calculateCellSizeAsPercentage();
 
         if (this.element.children.length > 0) {
             this.setCellSize(cellSize);
         }
-        
-        if (numCellsNeeded > 0) {
 
-            this.eraseGrid();
+        /* The commented out method below runs much slower when decreasing the grid size by a large amount */
+        this.eraseGrid();
+        const cellString = `<div class="c-sketchpad__cell" style="height:${cellSize}%; width:${cellSize}%;"></div>`
+        this.element.innerHTML = cellString.repeat(totalNumCells);
 
-            const fragment = document.createDocumentFragment();
-            while (fragment.childElementCount < numCellsNeeded) {
-                fragment.append(this.makeCell(cellSize));
-            }
-            this.element.append(fragment);
+        // if (numCellsNeeded > 0) {
 
-        } else if (numCellsNeeded < 0) {
+        //     this.eraseGrid();
 
-            while (this.element.children.length > totalNumCells) {
-                this.element.lastChild.remove();
-            }
+        //     const fragment = document.createDocumentFragment();
+        //     while (fragment.childElementCount < numCellsNeeded) {
+        //         fragment.append(this.makeCell(cellSize));
+        //     }
+        //     this.element.append(fragment);
 
-            this.eraseGrid();
+        // } else if (numCellsNeeded < 0) {
 
-        }
+        //     while (this.element.children.length > totalNumCells) {
+        //         this.element.lastChild.remove();
+        //     }
+
+        //     this.eraseGrid();
+
+        // }
     }
 
     makeCell(cellSize) {
@@ -86,7 +89,7 @@ export class Sketchpad {
 
     resize() {
         const container = this.element.parentElement;
-        const targetSize = 0.98 * Math.min(container.offsetWidth, container.offsetHeight);
+        const targetSize = 0.95 * Math.min(container.offsetWidth, container.offsetHeight);
 
         this.element.style.height = this.element.style.width = `${targetSize}px`;
     }

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 8.47 8.47">
+  <defs>
+    <marker id="a" refX="1" refY="0" orient="auto" overflow="visible">
+      <path d="M3.89 1.61L-.48.01 3.89-1.6c-.7.95-.7 2.25 0 3.21z" fill-rule="evenodd" stroke-width=".252" stroke-linejoin="round" stroke="#000"/>
+    </marker>
+    <marker id="b" refX="-1" refY="0" orient="auto" overflow="visible">
+      <path d="M-3.49-1.61L.88-.01-3.49 1.6c.7-.95.7-2.25 0-3.21z" fill-rule="evenodd" stroke="#000" stroke-width=".252" stroke-linejoin="round"/>
+    </marker>
+    <marker id="c" refX="1" refY="0" orient="auto" overflow="visible">
+      <path d="M3.89 1.61L-.48.01 3.89-1.6c-.7.95-.7 2.25 0 3.21z" fill-rule="evenodd" stroke="#000" stroke-width=".252" stroke-linejoin="round"/>
+    </marker>
+    <marker id="d" refX="-1" refY="0" orient="auto" overflow="visible">
+      <path d="M-3.49-1.61L.88-.01-3.49 1.6c.7-.95.7-2.25 0-3.21z" fill-rule="evenodd" stroke="#000" stroke-width=".252" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke="#000">
+    <g transform="matrix(1.04575 0 0 1.04558 -.42 -.42)" stroke-width=".96">
+      <rect width="6.91" height="6.91" x="1.32" y="1.32" rx=".22" ry=".22" stroke-width=".51" stroke-opacity=".99"/>
+      <path d="M1.06 3.67H8.5M1.06 5.89H8.5M3.67 1.06V8.5M5.89 1.06V8.5" stroke-width=".25" stroke-dashoffset=".37"/>
+    </g>
+    <path d="M1.74.23h5.62" stroke-width=".13" marker-start="url(#a)" marker-end="url(#b)"/>
+    <path d="M.23 1.74v5.62" stroke-width=".13" marker-start="url(#c)" marker-end="url(#d)"/>
+  </g>
+</svg>

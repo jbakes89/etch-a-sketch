@@ -10,37 +10,38 @@
     <body>
         <main class="l-page-container">
             <!-- Options bar -->
-            <div class="l-options__container">
-                <div class="l-options__bar">
-                    <!-- Change grid size -->
-                    <div class="l-options__subsection --grid-size">
-                        <form class="l-options__resize-button js-resize-form">
-                            <label for="grid-size">Grid size (1-100):</label>
-                            <input class="js-grid-size-input" type="number" name="grid-size" id="grid-size" min="1" max="100" value="16" required>
-                        </form>
-                    </div>
-                    <!-- Action buttons (Erase All, Save/Export?) -->
-                    <div class="l-options__subsection --actions">
-                        <button class="l-options__erase-all-button js-erase-all-button">Erase All</button>
-                    </div>
-                    <!-- Select painting mode -->
-                    <div class="l-options__subsection --painting-mode-selection">
+            <div class="l-options__bar">
+                <!-- Change grid size -->
+                <div class="l-options__subsection --grid-size">
+                    <label for="grid-size"><img src="/assets/resize-grid.svg" title="Grid size (1-100)" height="32px" width="32px"></label>
+                    <input class="js-grid-size-input" type="number" name="grid-size" id="grid-size" min="1" max="100" value="16" required>
+                </div>
+                <!-- Action buttons (Erase All, Save/Export?) -->
+                <div class="l-options__subsection --actions">
+                    <button class="l-options__erase-all-button js-erase-all-button">Erase All</button>
+                </div>
+                <!-- Select painting mode -->
+                <div class="l-options__subsection --painting-mode-selection">
+                    <div class="l-painting-mode-option-wrapper --single-color">
                         <input type="radio" name="painting-mode" id="shading" value="shading" checked>
-                        <label for="shading">Shading</label>
-                        <input type="radio" name="painting-mode" id="rainbow" value="rainbow">
-                        <label for="rainbow">Rainbow</label>
+                        <label for="shading">
+                            <div class="l-color-input__wrapper js-color-input-wrapper">
+                            <input type="color" value="#4d9fb3" id="color" name="color" class="color-input js-color-picker">
+                            </div>
+                        </label>
                     </div>
-                    <!-- Contextual (painting mode-specific) options -->
-                    <div class="l-options__subsection --contextual-options">
-                        <label for="color">Colour: </label>
-                        <input type="color" value="#4d9fb3" id="color" name="color" class="js-color-picker">
-                        <label for="alpha">Alpha: </label>
-                        <input type="range" id="alpha" name= "alpha" value="1.00" min="0" max="1" step="0.01" class="js-alpha-slider">
-                        <input class="js-alpha-value" type="number" name="alpha-value" id="alpha-value" min="0" max="1.00" value="1.00" step="0.01" required>
+                    <div class="l-painting-mode-option-wrapper --rainbow">
+                        <input type="radio" name="painting-mode" id="rainbow" value="rainbow">
+                        <label for="rainbow" class="l-rainbow-label js-rainbow-label js-inactive-label">
+                            <div class="l-rainbow-label-mask js-rainbow-label-mask"></div>
+                        </label>
                     </div>
                 </div>
-                <div class="c-options__tab">
-                =
+                <!-- Transparency (Alpha) -->
+                <div class="l-options__subsection --contextual-options">
+                    <label for="alpha" class="c-alpha-label">Transparency: </label>
+                    <input type="range" id="alpha" name= "alpha" value="1.00" min="0" max="1" step="0.01" class="js-alpha-slider">
+                    <input class="js-alpha-value" type="number" name="alpha-value" id="alpha-value" min="0" max="1.00" value="1.00" step="0.01" required>        
                 </div>
             </div>
             <!-- Sketchpad -->
